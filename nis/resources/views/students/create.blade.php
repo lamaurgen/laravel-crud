@@ -27,11 +27,11 @@
       {{-- Gender --}}
       <div>
       <h3>Select Gender</h3>
-      <input type="radio" name="gender" value="male" value="{{ old('male') }}">Male
+      <input type="radio" name="gender" value="male">Male
       <br>
-    <input type="radio" name="gender" value="female" value="{{ old('female') }}">Female
+    <input type="radio" name="gender" value="female">Female
     <br>
-      <input type="radio" name="gender" value="others" value="{{ old('others') }}">Others
+      <input type="radio" name="gender" value="others">Others
 
   </div>
       <br>
