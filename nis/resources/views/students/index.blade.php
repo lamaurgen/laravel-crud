@@ -15,6 +15,8 @@
         <th>Email</th>
         <th>Number</th>
         <th>Gender</th>
+        <th>Faculties</th>
+
 
         <th width="280px">Action</th>
     </tr>
@@ -26,6 +28,11 @@
         <td>{{ $student->email}}</td>
         <td>{{ $student->number}}</td>
         <td>{{ $student->gender}}</td>
+       
+        
+        <td>{{$student->subject->subject}}</td>
+    
+
 
         <td>
             <form action="{{ route('students.destroy',$student->id) }}" method="POST">
@@ -37,8 +44,15 @@
                 @csrf
                 @method('DELETE')
   
-                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-danger" onclick="return deleteFunction()">Delete</button>
             </form>
+            <script>
+                function deleteFunction() {
+                var r = confirm("Are you sure you want to delete?");
+                if (r == false) {
+                return false;
+                } }
+        </script>   
         </td>
     </tr>
     @endforeach

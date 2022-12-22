@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Models\Subject;
+
 
 class StudentController extends Controller
 {
@@ -14,10 +16,12 @@ class StudentController extends Controller
      */
     public function index()
     {
+        $subjects = Subject::all();
+
         $students = Student::latest()->paginate(5);
-        // return view ('students.index');
-        return view('students.index',compact('students'))
+        return view('students.index',compact('students','subjects'))
         ->with('i', (request()->input('page', 1) - 1) * 5);
+
     }
 
     /**
@@ -28,7 +32,8 @@ class StudentController extends Controller
     public function create()
 
     {
-        return view('students.create');
+        $data = subject::all();
+        return view('students.create',compact('data'));
     }
 
     /**
@@ -39,14 +44,17 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
       $request-> validate([
         'name'=> 'required',
         'address'=> 'required',
         'email'=> 'required',
         'number'=> 'required',
         'gender'=> 'required',
+        'subject_id'=> 'required'
       ]);
-      Student::create ($request-> all());
+    //   dd($request->all());
+      student::create ($request-> all());
       return redirect ()-> route ('students.index')
       ->with ('success','User created succesfully');
     }
@@ -59,7 +67,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        
+        return view ('students.show', compact('student'));
     }
 
     /**
@@ -70,7 +78,9 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        return view('students.edit',compact('student'));
+        $data = subject::all();
+
+        return view('students.edit',compact('student','data'));
     }
 
     /**
@@ -82,7 +92,19 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        
+        $request->validate([
+            'name'=> 'required',
+            'address'=> 'required',
+            'email'=> 'required',
+            'number'=> 'required',
+            'gender'=> 'required',
+        ]);
+    
+        $student->update($request->all());
+    
+        return redirect()->route('students.index')
+                        ->with('success','User updated successfully');
     }
 
     /**
@@ -93,6 +115,9 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+    
+        return redirect()->route('students.index')
+                        ->with('success','User deleted successfully');
     }
 }

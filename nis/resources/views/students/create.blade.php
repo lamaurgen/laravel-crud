@@ -24,19 +24,36 @@
         <input type="number" name="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ old('number') }}">
         
       </div>
+      {{-- <div class="mb-3">
+        <label>Id</label>
+        <input type="number" name="subject_id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ old('number') }}">
+        
+      </div>
+       --}}
       {{-- Gender --}}
       <div>
       <h3>Select Gender</h3>
-      <input type="radio" name="gender" value="male" value="{{ old('male') }}">Male
+      <input type="radio" name="gender" value="male">Male
       <br>
-    <input type="radio" name="gender" value="female" value="{{ old('female') }}">Female
+    <input type="radio" name="gender" value="female">Female
     <br>
-      <input type="radio" name="gender" value="others" value="{{ old('others') }}">Others
+      <input type="radio" name="gender" value="others">Others
 
   </div>
       <br>
 
 
+      <div class="form-group1">
+        <label for="subject">Faculties:</label>
+        <select id="subject" name="subject_id" value="subject" >
+       @foreach ($data as $row)
+       <option value = {{$row->id}}>{{$row->subject}}</option>
+           
+       @endforeach
+      </select>
+      </div>
+      <br>
+      <br>
     <button type="submit" name="submit" class="btn btn-primary">Submit</button>
   </form>
 @endsection
